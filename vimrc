@@ -12,6 +12,7 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 nmap <leader>ne :NERDTreeToggle<cr>         " toggle nerd tree
+nmap <leader>ff :FZF<cr>                    " start fzf search
 
 nmap <leader>B Oimport ipdb; ipdb.set_trace()<Esc>
 nmap <leader>b oimport ipdb; ipdb.set_trace()<Esc>
@@ -31,6 +32,7 @@ nmap <silent> <leader>gg :Git pull<CR>                      " Fugitive settings
 
 nnoremap <silent> <leader>rh :nohl<CR>      " Remove highlighted search results
 nnoremap <leader>sv :source $MYVIMRC<cr>                         " Source vimrc
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>         " Open vimrc in vertical split
 nmap <leader>tu :UndotreeToggle<cr>	                      " undotree toggle
 
 if has("unix")
@@ -65,6 +67,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'		" nerd tree
 Plugin 'w0rp/ale'               " Asynchronous Lint Engine
 Plugin 'terryma/vim-multiple-cursors'
+Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'tpope/vim-surround'
 Plugin 'mbbill/undotree.git'
@@ -84,6 +87,12 @@ Plugin 'mattn/emmet-vim'
 
 " git
 Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
+
+" syntax and highlighting
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
+Plugin 'sheerun/vim-polyglot'
 
 
 " All of your Plugins must be added before the following line
@@ -121,6 +130,9 @@ set hlsearch                           " shift 8 word highlighting
 set incsearch
 
 set mouse=a                            " Use mouse support in XTerm/iTerm
+if !has('nvim')
+    set ttymouse=xterm2
+endif
 
 set noswapfile
 set noautochdir
@@ -139,3 +151,15 @@ set undofile
 let g:jsx_ext_required = 0             " Allow JSX in normal JS files"
 let g:NERDSpaceDelims = 1
 let NERDTreeIgnore = ['\.pyc$']        " ignore pyc files
+
+set rtp+=/usr/local/opt/fzf
+let g:ale_linters = {'javascript': ['eslint']}
+let g:ale_javascript_eslint_executable = 'eslint'
+
+if exists('$TMUX')
+	let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+	let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+	let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+	let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
