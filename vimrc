@@ -93,6 +93,8 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'sheerun/vim-polyglot'
+Plugin 'styled-components/vim-styled-components'
+Plugin 'ambv/black'
 
 
 " All of your Plugins must be added before the following line
@@ -115,7 +117,7 @@ set backspace=indent,eol,start         " Let backspace work over anythi
 set backupdir=~/tmp,~/.vim/undodir,/var/tmp,/tmp
 
 set clipboard=unnamed
-set colorcolumn=80
+set colorcolumn=88
 colorscheme spring-night
 
 set encoding=utf8                      " UTF-8 by default
@@ -153,7 +155,8 @@ let g:NERDSpaceDelims = 1
 let NERDTreeIgnore = ['\.pyc$']        " ignore pyc files
 
 set rtp+=/usr/local/opt/fzf
-let g:ale_linters = {'javascript': ['eslint']}
+let g:ale_linters = {'javascript': ['eslint'], 'python': ['flake8']}
+
 let g:ale_javascript_eslint_executable = 'eslint'
 
 if exists('$TMUX')
